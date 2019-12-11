@@ -3,7 +3,7 @@
   "author": "Raice Hannay <voodoocreation@gmail.com>",
   "description": "A set of classes to make setting up React components for unit tests easy.",
   "license": "ISC",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "keywords": [
     "component",
     "enzyme",
@@ -64,7 +64,6 @@
     "@types/enzyme": "^3.10.3",
     "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.23",
-    "@types/lodash.merge": "^4.6.6",
     "@types/react": "^16.9.15",
     "@types/react-redux": "^7.1.5",
     "cross-env": "^6.0.3",
