@@ -3,7 +3,7 @@
   "author": "Raice Hannay <voodoocreation@gmail.com>",
   "description": "A set of classes to make setting up React components for unit tests easy.",
   "license": "ISC",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [
     "component",
     "enzyme",
@@ -88,6 +88,6 @@
     "typescript-fsa-reducers": "^1.2.1"
   },
   "dependencies": {
-    "lodash.merge": "^4.6.2"
+    "merge-deep": "^3.0.2"
   }
 }

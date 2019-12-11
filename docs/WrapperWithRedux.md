@@ -4,10 +4,10 @@
 This abstract class has a `WrappingComponent` defined which wraps the component in a Redux `Provider`,
 passing in the return value from the `createStore` method.
 
-To use this class, you have to extend it and define your own `createStore` method to return an
-instance of your Redux store, using the `initialState` and `middlewares` that this class provides -
-it is important to ensure that your store uses these, because if it disregards them, none of the
-methods this class provides will function.
+To use this class, you have to extend it, pass in your store state type in the class declaration and
+define your own `createStore` method to return an instance of your Redux store, using the
+`initialState` and `middlewares` that this class provides - it is important to ensure that your
+store uses these, because if it disregards them, none of the methods this class provides will function.
 
 
 Public read-only properties
@@ -50,7 +50,7 @@ import * as React from "react";
 import { IntlConfig } from "react-intl";
 import { WrapperWithRedux as BaseWrapper } from "react-test-wrapper";
 
-import { createStore } from "../store/createStore";
+import { createStore, TStoreState } from "../store";
 
 class Wrapper<
   C extends React.ComponentType<any>,
