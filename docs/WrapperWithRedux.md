@@ -56,7 +56,7 @@ class Wrapper<
   C extends React.ComponentType<any>,
   S extends {} = TStoreState,
   P extends React.ComponentProps<C> = React.ComponentProps<C>
-> extends WrapperWithRedux<C, S, P> {
+> extends BaseWrapper<C, S, P> {
   protected createStore(
     initialState: DeepPartial<S>,
     middlewares: Middleware[]
