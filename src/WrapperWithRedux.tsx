@@ -13,9 +13,9 @@ export default abstract class WrapperWithRedux<
   // Properties that remain throughout instance lifecycle
   protected defaultReduxState: DeepPartial<S> = {};
 
-  // Properties that are cleared whenever shallow/mount/render are called
+  // Scenario-specific properties that are cleared whenever shallow/mount/render are called
   protected dispatchedActions: AnyAction[] = [];
-  protected reduxState: DeepPartial<S> = {};
+  protected scenarioReduxState: DeepPartial<S> = {};
   protected reduxStore: Store<S> | undefined = undefined;
 
   public get reduxHistory() {
@@ -27,17 +27,17 @@ export default abstract class WrapperWithRedux<
   }
 
   protected get mergedReduxState(): S {
-    return merge({}, this.defaultReduxState, this.reduxState) as S;
+    return merge({}, this.defaultReduxState, this.scenarioReduxState) as S;
   }
 
-  public withDefaultReduxState = (reduxState: DeepPartial<S>) => {
-    this.defaultReduxState = reduxState;
+  public withDefaultReduxState = (state: DeepPartial<S>) => {
+    this.defaultReduxState = state;
 
     return this;
   };
 
-  public withReduxState = (reduxState: DeepPartial<S>) => {
-    this.reduxState = reduxState;
+  public withReduxState = (state: DeepPartial<S>) => {
+    this.scenarioReduxState = state;
 
     return this;
   };
@@ -56,6 +56,10 @@ export default abstract class WrapperWithRedux<
     throw new Error(
       "The 'shallow' method is not supported when mounting a connected component. Use 'mount' instead."
     );
+  };
+
+  public resetReduxHistory = () => {
+    this.dispatchedActions = [];
   };
 
   protected abstract createStore(
@@ -83,7 +87,7 @@ export default abstract class WrapperWithRedux<
   protected reset() {
     super.reset();
 
-    this.reduxState = {};
+    this.scenarioReduxState = {};
     this.dispatchedActions = [];
   }
 }

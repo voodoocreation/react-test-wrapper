@@ -11,7 +11,7 @@ describe("Wrapper", () => {
     });
 
     describe("when using 'shallow'", () => {
-      const { wrapper } = component.shallow();
+      const wrapper = component.shallow();
 
       it("returns ShallowWrapper", () => {
         expect(wrapper).toBeInstanceOf(ShallowWrapper);
@@ -27,7 +27,7 @@ describe("Wrapper", () => {
     });
 
     describe("when using 'mount'", () => {
-      const { wrapper } = component.mount();
+      const wrapper = component.mount();
 
       it("returns ReactWrapper", () => {
         expect(wrapper).toBeInstanceOf(ReactWrapper);
@@ -43,7 +43,7 @@ describe("Wrapper", () => {
     });
 
     describe("when using 'render'", () => {
-      const { wrapper } = component.render();
+      const wrapper = component.render();
 
       it("returns Cheerio wrapper", () => {
         expect(wrapper.cheerio).toBe("[cheerio object]");
@@ -65,7 +65,7 @@ describe("Wrapper", () => {
     );
 
     it("renders default children correctly", () => {
-      const { wrapper } = component.render();
+      const wrapper = component.render();
 
       expect(wrapper.find(".Dummy--children").html()).toBe(
         "<div>Default children</div>"
@@ -73,7 +73,7 @@ describe("Wrapper", () => {
     });
 
     it("renders test-specific children correctly", () => {
-      const { wrapper } = component
+      const wrapper = component
         .withChildren(<span>Test children</span>)
         .render();
 
@@ -83,7 +83,7 @@ describe("Wrapper", () => {
     });
 
     it("clears test-specific children after previous test and renders default children again", () => {
-      const { wrapper } = component.render();
+      const wrapper = component.render();
 
       expect(wrapper.find(".Dummy--children").html()).toBe(
         "<div>Default children</div>"
@@ -97,24 +97,27 @@ describe("Wrapper", () => {
     });
 
     it("renders with default props correctly", () => {
-      const { wrapper } = component.render();
+      const wrapper = component.render();
 
+      expect(component.props).toEqual({ value: "Default value" });
       expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
     });
 
     it("renders with test-specific props correctly", () => {
-      const { wrapper } = component
+      const wrapper = component
         .withProps({
           value: "Test value"
         })
         .render();
 
+      expect(component.props).toEqual({ value: "Test value" });
       expect(wrapper.find(".Dummy--value").text()).toBe("Test value");
     });
 
     it("clears test-specific props after previous test and uses default props again", () => {
-      const { wrapper } = component.render();
+      const wrapper = component.render();
 
+      expect(component.props).toEqual({ value: "Default value" });
       expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
     });
   });

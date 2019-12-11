@@ -5,24 +5,25 @@ export default class Wrapper<
   C extends React.ComponentType<any>,
   P extends React.ComponentProps<C> = React.ComponentProps<C>
 > {
+  // Properties that are implemented in classes that extend Wrapper
+  protected WrappingComponent: ComponentType<any> | undefined = undefined;
+
   // Properties that remain throughout instance lifecycle
   protected defaultChildren: React.ReactNode;
   protected defaultProps: Partial<P> = {};
-  protected WrappingComponent: ComponentType<any> | undefined = undefined;
 
-  // Properties that are cleared whenever shallow/mount/render are called
-  protected children: React.ReactNode;
-  protected props: Partial<P> = {};
+  // Scenario-specific properties that are cleared whenever shallow/mount/render are called
+  protected scenarioChildren: React.ReactNode;
+  protected scenarioProps: Partial<P> = {};
 
-  protected get mergedProps() {
-    return {
-      children: this.children || this.defaultChildren,
-      ...this.defaultProps,
-      ...this.props
-    };
-  }
+  // Properties to be accessed via getters after mounting
+  protected mergedProps: Partial<P> = {};
 
   constructor(protected readonly Component: C) {}
+
+  public get props() {
+    return this.mergedProps;
+  }
 
   public withDefaultChildren = (children: React.ReactNode) => {
     this.defaultChildren = children;
@@ -37,33 +38,30 @@ export default class Wrapper<
   };
 
   public withChildren = (children: React.ReactNode) => {
-    this.children = children;
+    this.scenarioChildren = children;
 
     return this;
   };
 
   public withProps = (props: Partial<P>) => {
-    this.props = props;
+    this.scenarioProps = props;
 
     return this;
   };
 
   public mount = () => {
-    const props = this.mergedProps as P;
+    const props = this.defineProps() as P;
     const wrapper = mount<C>(<this.Component {...props} />, {
       wrappingComponent: this.WrappingComponent
     });
 
     this.reset();
 
-    return {
-      props,
-      wrapper
-    };
+    return wrapper;
   };
 
   public render = () => {
-    const props = this.mergedProps as P;
+    const props = this.defineProps() as P;
     const wrapper = render(
       this.WrappingComponent ? (
         <this.WrappingComponent>
@@ -76,14 +74,11 @@ export default class Wrapper<
 
     this.reset();
 
-    return {
-      props,
-      wrapper
-    };
+    return wrapper;
   };
 
   public shallow = () => {
-    const props = this.mergedProps as P;
+    const props = this.defineProps() as P;
     const wrapper = shallow(
       this.WrappingComponent ? (
         <this.WrappingComponent>
@@ -96,14 +91,21 @@ export default class Wrapper<
 
     this.reset();
 
-    return {
-      props,
-      wrapper
+    return wrapper;
+  };
+
+  protected defineProps = () => {
+    this.mergedProps = {
+      children: this.scenarioChildren || this.defaultChildren,
+      ...this.defaultProps,
+      ...this.scenarioProps
     };
+
+    return this.mergedProps;
   };
 
   protected reset() {
-    this.children = undefined;
-    this.props = {};
+    this.scenarioChildren = undefined;
+    this.scenarioProps = {};
   }
 }

@@ -9,8 +9,9 @@ import WrapperWithRedux from "./WrapperWithRedux";
 
 class Wrapper<
   C extends React.ComponentType<any>,
-  S extends {} = TStoreState
-> extends WrapperWithRedux<C, S> {
+  S extends {} = TStoreState,
+  P extends React.ComponentProps<C> = React.ComponentProps<C>
+> extends WrapperWithRedux<C, S, P> {
   protected createStore(
     initialState: DeepPartial<S>,
     middlewares: Middleware[]
@@ -34,7 +35,7 @@ describe("WrapperWithRedux", () => {
     });
 
     describe("when using 'mount'", () => {
-      const { wrapper } = component.mount();
+      const wrapper = component.mount();
 
       it("returns ReactWrapper", () => {
         expect(wrapper).toBeInstanceOf(ReactWrapper);
@@ -64,13 +65,13 @@ describe("WrapperWithRedux", () => {
     });
 
     it("mounts with default reduxState correctly", () => {
-      const { wrapper } = component.mount();
+      const wrapper = component.mount();
 
       expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
     });
 
     it("mounts with test-specific reduxState correctly", () => {
-      const { wrapper } = component
+      const wrapper = component
         .withReduxState({
           test: {
             value: "Test value"
@@ -82,7 +83,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("clears test-specific reduxState after previous test and uses default reduxState again", () => {
-      const { wrapper } = component.mount();
+      const wrapper = component.mount();
 
       expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
     });
@@ -90,7 +91,7 @@ describe("WrapperWithRedux", () => {
 
   describe("when using the reduxHistory API", () => {
     const component = new Wrapper(ConnectedDummy);
-    const { wrapper } = component.mount();
+    const wrapper = component.mount();
 
     it("starts with an empty history", () => {
       expect(component.reduxHistory).toEqual([]);
@@ -129,10 +130,31 @@ describe("WrapperWithRedux", () => {
     it("resets reduxHistory", () => {
       expect(component.reduxHistory).toEqual([]);
     });
+
+    it("clicks the button again", () => {
+      wrapper.find(".Dummy--button").simulate("click");
+    });
+
+    it("dispatches actions.setValue again with expected payload", () => {
+      const matchingActions = component.reduxHistory.filter(
+        actions.setValue.match
+      );
+
+      expect(matchingActions).toHaveLength(1);
+      expect(matchingActions[0].payload).toBe("Click");
+    });
+
+    it("calls the resetReduxHistory method", () => {
+      component.resetReduxHistory();
+    });
+
+    it("resets reduxHistory", () => {
+      expect(component.reduxHistory).toEqual([]);
+    });
   });
 
   describe("when accessing the store", () => {
-    let result: any;
+    let wrapper: ReactWrapper<typeof ConnectedDummy>;
     const payload = "Dispatched value";
     const state = {
       test: {
@@ -146,7 +168,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("mounts the component", () => {
-      result = component.mount();
+      wrapper = component.mount();
     });
 
     it("has the store defined after mounting", () => {
@@ -177,7 +199,7 @@ describe("WrapperWithRedux", () => {
 
     it("renders the new value", () => {
       expect(
-        result.wrapper
+        wrapper
           .update()
           .find(".Dummy--value")
           .text()

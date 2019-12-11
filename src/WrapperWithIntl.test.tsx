@@ -23,7 +23,7 @@ describe("WrapperWithIntl", () => {
   });
 
   describe("when using the 'shallow' method", () => {
-    const { wrapper } = component.shallow();
+    const wrapper = component.shallow();
 
     it("renders the correct BUTTON message", () => {
       expect(
@@ -36,7 +36,7 @@ describe("WrapperWithIntl", () => {
   });
 
   describe("when using the 'mount' method", () => {
-    const { wrapper } = component.mount();
+    const wrapper = component.mount();
 
     it("renders the correct BUTTON message", () => {
       expect(wrapper.find(".Dummy--button").text()).toBe(messages.BUTTON);
@@ -44,7 +44,7 @@ describe("WrapperWithIntl", () => {
   });
 
   describe("when using the 'render' method", () => {
-    const { wrapper } = component.render();
+    const wrapper = component.render();
 
     it("renders the correct BUTTON message", () => {
       expect(wrapper.find(".Dummy--button").text()).toBe(messages.BUTTON);

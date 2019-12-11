@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WrapperWithRedux when using the different render methods when using 'mount' matches snapshot 1`] = `
+<Connect(Dummy)>
+  <Dummy
+    setValue={[Function]}
+    value="Default value"
+  >
+    <div
+      className="Dummy"
+    >
+      <div
+        className="Dummy--value"
+      >
+        Default value
+      </div>
+      <div
+        className="Dummy--children"
+      />
+      <button
+        className="Dummy--button"
+        onClick={[Function]}
+      >
+        Button
+      </button>
+    </div>
+  </Dummy>
+</Connect(Dummy)>
+`;
