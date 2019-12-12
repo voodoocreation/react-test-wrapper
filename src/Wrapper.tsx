@@ -1,6 +1,6 @@
 import { ComponentType, mount, render, shallow } from "enzyme";
-import merge from "merge-deep";
 import * as React from "react";
+import merge from "ts-deepmerge";
 
 export default class Wrapper<
   C extends React.ComponentType<any>,

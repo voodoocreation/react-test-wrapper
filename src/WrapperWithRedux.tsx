@@ -1,7 +1,7 @@
-import merge from "merge-deep";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { AnyAction, DeepPartial, Middleware, Store } from "redux";
+import merge from "ts-deepmerge";
 
 import Wrapper from "./Wrapper";
 
