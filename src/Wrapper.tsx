@@ -51,6 +51,8 @@ export default class Wrapper<
   };
 
   public mount = () => {
+    this.beforeMount();
+
     const props = this.defineProps() as P;
     const wrapper = mount<C>(<this.Component {...props} />, {
       wrappingComponent: this.WrappingComponent
@@ -62,6 +64,8 @@ export default class Wrapper<
   };
 
   public render = () => {
+    this.beforeMount();
+
     const props = this.defineProps() as P;
     const wrapper = render(
       this.WrappingComponent ? (
@@ -79,6 +83,8 @@ export default class Wrapper<
   };
 
   public shallow = () => {
+    this.beforeMount();
+
     const props = this.defineProps() as P;
     const wrapper = shallow(
       this.WrappingComponent ? (
@@ -93,6 +99,10 @@ export default class Wrapper<
     this.reset();
 
     return wrapper;
+  };
+
+  protected beforeMount = () => {
+    // Implement this method when extending to define properties to pass to `WrappingComponent`
   };
 
   protected defineProps = () => {

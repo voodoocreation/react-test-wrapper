@@ -47,7 +47,6 @@ How to extend for use in your project
 
 ```typescript jsx
 import * as React from "react";
-import { IntlConfig } from "react-intl";
 import { WrapperWithRedux as BaseWrapper } from "react-test-wrapper";
 
 import { createStore, TStoreState } from "../store";

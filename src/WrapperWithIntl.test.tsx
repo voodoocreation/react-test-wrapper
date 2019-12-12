@@ -1,21 +1,5 @@
-import * as React from "react";
-import { IntlConfig } from "react-intl";
-
 import { IntlDummy } from "../test/IntlDummy";
-import WrapperWithIntl from "./WrapperWithIntl";
-
-const messages = {
-  BUTTON: "Button"
-};
-
-class Wrapper<
-  C extends React.ComponentType<any>,
-  P extends React.ComponentProps<C> = React.ComponentProps<C>
-> extends WrapperWithIntl<C, P> {
-  protected intlProviderProps: Partial<IntlConfig> = {
-    messages
-  };
-}
+import Wrapper, { messages } from "../test/TestWrapperWithIntl";
 
 describe("WrapperWithIntl", () => {
   const component = new Wrapper(IntlDummy).withDefaultProps({

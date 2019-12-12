@@ -6,6 +6,16 @@ extend this one, so all methods defined on this class are also available on the 
 
 As with all of these classes, you can extend it to implement your own additional functionality.
 
+
+Protected abstract methods to define when extending
+---------------------------------------------------
+
+### `beforeMount`
+This method is called before `mount`, `render` or `shallow` are called. The intention is to use this
+when defining any instance properties that need to be passed as props in your `WrappingComponent`,
+such as the Redux store instance (see [`WrapperWithRedux`](./WrapperWithRedux.md) for example).
+
+
 Public read-only properties
 ---------------------------
 

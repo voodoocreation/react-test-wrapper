@@ -43,6 +43,7 @@ export default abstract class WrapperWithRedux<
   };
 
   public render = () => {
+    this.beforeMount();
     this.reset();
 
     throw new Error(
@@ -51,6 +52,7 @@ export default abstract class WrapperWithRedux<
   };
 
   public shallow = () => {
+    this.beforeMount();
     this.reset();
 
     throw new Error(
@@ -67,12 +69,10 @@ export default abstract class WrapperWithRedux<
     middlewares: Middleware[]
   ): Store;
 
-  protected defineStore = () => {
+  protected beforeMount = () => {
     this.reduxStore = this.createStore(this.mergedReduxState, [
       this.reduxHistoryMiddleware
     ]);
-
-    return this.reduxStore;
   };
 
   protected reduxHistoryMiddleware: Middleware = () => next => action => {
@@ -81,7 +81,7 @@ export default abstract class WrapperWithRedux<
   };
 
   protected WrappingComponent: React.FC = ({ children }) => (
-    <Provider store={this.defineStore()}>{children}</Provider>
+    <Provider store={this.store!}>{children}</Provider>
   );
 
   protected reset() {

@@ -1,33 +1,21 @@
 import { ReactWrapper } from "enzyme";
-import * as React from "react";
-import { DeepPartial, Middleware } from "redux";
 
 import * as actions from "../test/actions";
 import { ConnectedDummy } from "../test/Dummy";
-import { createStore, TStoreState } from "../test/store";
-import WrapperWithRedux from "./WrapperWithRedux";
+import Wrapper from "../test/TestWrapperWithRedux";
 
-class Wrapper<
-  C extends React.ComponentType<any>,
-  S extends {} = TStoreState,
-  P extends React.ComponentProps<C> = React.ComponentProps<C>
-> extends WrapperWithRedux<C, S, P> {
-  protected createStore(
-    initialState: DeepPartial<S>,
-    middlewares: Middleware[]
-  ) {
-    return createStore(initialState, middlewares);
+const initialState = {
+  test: {
+    value: "Default value"
   }
-}
+};
+
+const component = new Wrapper(ConnectedDummy).withDefaultReduxState(
+  initialState
+);
 
 describe("WrapperWithRedux", () => {
   describe("when using the different render methods", () => {
-    const component = new Wrapper(ConnectedDummy).withDefaultReduxState({
-      test: {
-        value: "Default value"
-      }
-    });
-
     describe("when using 'shallow'", () => {
       it("throws an error", () => {
         expect(() => component.shallow()).toThrowError();
@@ -58,12 +46,6 @@ describe("WrapperWithRedux", () => {
   });
 
   describe("when using the reduxState API", () => {
-    const component = new Wrapper(ConnectedDummy).withDefaultReduxState({
-      test: {
-        value: "Default value"
-      }
-    });
-
     it("mounts with default reduxState correctly", () => {
       const wrapper = component.mount();
 
@@ -90,11 +72,14 @@ describe("WrapperWithRedux", () => {
   });
 
   describe("when using the reduxHistory API", () => {
-    const component = new Wrapper(ConnectedDummy);
     const wrapper = component.mount();
 
     it("starts with an empty history", () => {
       expect(component.reduxHistory).toEqual([]);
+    });
+
+    it("renders the correct value", () => {
+      expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
     });
 
     it("clicks the button", () => {
@@ -108,6 +93,10 @@ describe("WrapperWithRedux", () => {
 
       expect(matchingActions).toHaveLength(1);
       expect(matchingActions[0].payload).toBe("Click");
+    });
+
+    it("renders the correct value", () => {
+      expect(wrapper.find(".Dummy--value").text()).toBe("Click");
     });
 
     it("clicks the button again", () => {
@@ -156,27 +145,19 @@ describe("WrapperWithRedux", () => {
   describe("when accessing the store", () => {
     let wrapper: ReactWrapper<typeof ConnectedDummy>;
     const payload = "Dispatched value";
-    const state = {
-      test: {
-        value: "Default value"
-      }
-    };
-    const component = new Wrapper(ConnectedDummy).withDefaultReduxState(state);
-
-    it("doesn't have the store defined before mounting", () => {
-      expect(component.store).toBeUndefined();
-    });
 
     it("mounts the component", () => {
       wrapper = component.mount();
     });
 
-    it("has the store defined after mounting", () => {
-      expect(component.store).toBeDefined();
+    it("has the expected state in the store", () => {
+      expect(component.store?.getState()).toEqual(initialState);
     });
 
-    it("has the expected state in the store", () => {
-      expect(component.store?.getState()).toEqual(state);
+    it("renders the default value", () => {
+      expect(wrapper.find(".Dummy--value").text()).toBe(
+        initialState.test.value
+      );
     });
 
     it("dispatches an action", () => {
@@ -198,12 +179,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("renders the new value", () => {
-      expect(
-        wrapper
-          .update()
-          .find(".Dummy--value")
-          .text()
-      ).toBe(payload);
+      expect(wrapper.find(".Dummy--value").text()).toBe(payload);
     });
   });
 });

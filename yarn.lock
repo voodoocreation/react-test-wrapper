@@ -4088,10 +4088,10 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-ts-deepmerge@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-1.0.0.tgz#f068b4ffc547fa67124d46f6b89f3a4f15a9bd61"
-  integrity sha512-ExxHq1g8SptwuDLYiW5yFtk6DyNIZ4pOeSRwE38VffDJAMUk51yD/Jn8j7AsPVhY4rfeajYi2+i8r9r2nVDTRA==
+ts-deepmerge@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/ts-deepmerge/-/ts-deepmerge-1.0.2.tgz#28d0799dadb62cfa1eb557e7b72929ce07109f99"
+  integrity sha512-FKzWi+9FFueqdDuhtxYyAHlUyFbmBi09tQQvlG5PvR0NmD745DMnpiAzZZVShwFnBdir5e1gz+wwPKTykMKkKg==
 
 ts-jest@^24.2.0:
   version "24.2.0"
