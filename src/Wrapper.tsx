@@ -96,7 +96,7 @@ export default class Wrapper<
   };
 
   protected defineProps = () => {
-    this.mergedProps = merge({}, this.defaultProps, this.scenarioProps, {
+    this.mergedProps = merge(this.defaultProps, this.scenarioProps, {
       children: this.scenarioChildren || this.defaultChildren
     });
 

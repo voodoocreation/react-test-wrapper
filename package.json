@@ -3,7 +3,7 @@
   "author": "Raice Hannay <voodoocreation@gmail.com>",
   "description": "A set of classes to make setting up React components for unit tests easy.",
   "license": "ISC",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "keywords": [
     "component",
     "enzyme",

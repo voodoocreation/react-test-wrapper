@@ -27,7 +27,7 @@ export default abstract class WrapperWithRedux<
   }
 
   protected get mergedReduxState(): S {
-    return merge({}, this.defaultReduxState, this.scenarioReduxState) as S;
+    return merge(this.defaultReduxState, this.scenarioReduxState) as S;
   }
 
   public withDefaultReduxState = (state: DeepPartial<S>) => {
