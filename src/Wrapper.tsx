@@ -54,7 +54,7 @@ export default class Wrapper<
     this.beforeMount();
 
     const props = this.defineProps() as P;
-    const wrapper = mount<C>(<this.Component {...props} />, {
+    const wrapper = mount<P>(<this.Component {...props} />, {
       wrappingComponent: this.WrappingComponent
     });
 
@@ -67,7 +67,7 @@ export default class Wrapper<
     this.beforeMount();
 
     const props = this.defineProps() as P;
-    const wrapper = render(
+    const wrapper = render<P, React.ComponentState>(
       this.WrappingComponent ? (
         <this.WrappingComponent>
           <this.Component {...props} />
@@ -86,7 +86,7 @@ export default class Wrapper<
     this.beforeMount();
 
     const props = this.defineProps() as P;
-    const wrapper = shallow(
+    const wrapper = shallow<P>(
       this.WrappingComponent ? (
         <this.WrappingComponent>
           <this.Component {...props} />
