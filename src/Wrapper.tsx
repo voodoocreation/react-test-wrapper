@@ -1,6 +1,5 @@
 import { ComponentType, mount, render, shallow } from "enzyme";
 import * as React from "react";
-import merge from "ts-deepmerge";
 
 export default class Wrapper<
   C extends React.ComponentType<any>,
@@ -106,9 +105,11 @@ export default class Wrapper<
   };
 
   protected defineProps = () => {
-    this.mergedProps = merge(this.defaultProps, this.scenarioProps, {
+    this.mergedProps = {
+      ...this.defaultProps,
+      ...this.scenarioProps,
       children: this.scenarioChildren || this.defaultChildren
-    });
+    };
 
     return this.mergedProps;
   };

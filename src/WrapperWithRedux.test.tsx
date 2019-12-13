@@ -143,7 +143,7 @@ describe("WrapperWithRedux", () => {
   });
 
   describe("when accessing the store", () => {
-    let wrapper: ReactWrapper<typeof ConnectedDummy>;
+    let wrapper: ReturnType<typeof component.mount>;
     const payload = "Dispatched value";
 
     it("mounts the component", () => {
