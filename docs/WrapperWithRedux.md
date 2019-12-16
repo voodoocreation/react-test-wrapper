@@ -9,6 +9,41 @@ define your own `createStore` method to return an instance of your Redux store, 
 `initialState` and `middlewares` that this class provides - it is important to ensure that your
 store uses these, because if it disregards them, none of the methods this class provides will function.
 
+Extensions to the returned `ReduxWrapper`
+-----------------------------------------
+
+The return type of the `mount` method extends Enzyme's `ReactWrapper` by adding a store property to
+it, so you can access the store instance that the component was mounted with. This is useful for
+some edge cases where you may want to test how your component reacts to actions being dispatched
+outside of the component's scope.
+
+For example:
+```typescript jsx
+const component = new WrapperWithRedux(SomeComponent);
+
+describe("when testing a scenario", () => {
+  const wrapper = component
+    .withReduxState({
+      test: {
+        value: "Scenario value 1"
+      }
+    })
+    .mount();
+
+  it("renders the initial value", () => {
+    expect(wrapper.find(".SomeComponent--value").text()).toBe("Initial value");
+  });
+
+  it("dispatches actions.setValue", () => {
+    wrapper.store.dispatch(actions.setValue("New value"));
+  });
+
+  it("renders the updated value", () => {
+    expect(wrapper.find(".SomeComponent--value").text()).toBe("New value");
+  });
+});
+```
+
 
 Public read-only properties
 ---------------------------
@@ -16,10 +51,6 @@ Public read-only properties
 ### `reduxHistory`
 An array of actions that have been dispatched, used when asserting that actions have been
 dispatched as expected during interactions or in the component lifecycle.
-
-### `store`
-The instance of the Redux store used. However, this is only available after calling `mount`.
-If accessed prior to mounting your component, it will be `undefined`.
 
 
 Public methods
@@ -41,6 +72,9 @@ Sets the default Redux store state to be used for the wrapper instance.
 ### `withReduxState`
 Sets the scenario-specific Redux store state to be used - cleared after `mount`, `render` or `shallow` are called.
 
+### `mount`
+Mounts the component with the Enzyme `mount` function, using the currently-set data.
+Returns a `ReactWrapper` instance, which also includes a `store` property.
 
 How to extend for use in your project
 -------------------------------------

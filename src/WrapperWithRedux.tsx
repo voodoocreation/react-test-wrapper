@@ -1,9 +1,14 @@
+import { mount, ReactWrapper } from "enzyme";
 import * as React from "react";
 import { Provider } from "react-redux";
 import { AnyAction, DeepPartial, Middleware, Store } from "redux";
 import merge from "ts-deepmerge";
 
 import Wrapper from "./Wrapper";
+
+type TWrapperWithStore<P, S> = ReactWrapper<P> & {
+  store: Store<S>;
+};
 
 export default abstract class WrapperWithRedux<
   C extends React.ComponentType<any>,
@@ -22,10 +27,6 @@ export default abstract class WrapperWithRedux<
     return this.dispatchedActions;
   }
 
-  public get store() {
-    return this.reduxStore;
-  }
-
   protected get mergedReduxState(): S {
     return merge(this.defaultReduxState, this.scenarioReduxState) as S;
   }
@@ -40,6 +41,26 @@ export default abstract class WrapperWithRedux<
     this.scenarioReduxState = state;
 
     return this;
+  };
+
+  // @ts-ignore
+  public mount = () => {
+    this.beforeMount();
+
+    const props = this.defineProps() as P;
+    // @ts-ignore
+    const wrapper: TWrapperWithStore<P, S> = mount<P>(
+      <this.Component {...props} />,
+      {
+        wrappingComponent: this.WrappingComponent
+      }
+    );
+
+    this.reset();
+
+    wrapper.store = this.reduxStore!;
+
+    return wrapper;
   };
 
   public render = () => {
@@ -81,7 +102,7 @@ export default abstract class WrapperWithRedux<
   };
 
   protected WrappingComponent: React.FC = ({ children }) => (
-    <Provider store={this.store!}>{children}</Provider>
+    <Provider store={this.reduxStore!}>{children}</Provider>
   );
 
   protected reset() {

@@ -151,7 +151,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("has the expected state in the store", () => {
-      expect(component.store?.getState()).toEqual(initialState);
+      expect(wrapper.store.getState()).toEqual(initialState);
     });
 
     it("renders the default value", () => {
@@ -161,7 +161,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("dispatches an action", () => {
-      component.store?.dispatch(actions.setValue(payload));
+      wrapper.store.dispatch(actions.setValue(payload));
     });
 
     it("has the action in the history", () => {
@@ -171,7 +171,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("updates the store", () => {
-      expect(component.store?.getState()).toEqual({
+      expect(wrapper.store.getState()).toEqual({
         test: {
           value: payload
         }
