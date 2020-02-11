@@ -45,6 +45,7 @@ export default abstract class WrapperWithRedux<
 
   // @ts-ignore
   public mount = () => {
+    this.dispatchedActions = [];
     this.beforeMount();
 
     const props = this.defineProps() as P;
@@ -109,6 +110,5 @@ export default abstract class WrapperWithRedux<
     super.reset();
 
     this.scenarioReduxState = {};
-    this.dispatchedActions = [];
   }
 }
