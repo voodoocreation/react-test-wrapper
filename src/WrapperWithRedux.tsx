@@ -86,11 +86,6 @@ export default abstract class WrapperWithRedux<
     this.dispatchedActions = [];
   };
 
-  protected abstract createStore(
-    initialState: DeepPartial<S>,
-    middlewares: Middleware[]
-  ): Store;
-
   protected beforeMount = () => {
     this.reduxStore = this.createStore(this.mergedReduxState, [
       this.reduxHistoryMiddleware
@@ -111,4 +106,9 @@ export default abstract class WrapperWithRedux<
 
     this.scenarioReduxState = {};
   }
+
+  protected abstract createStore(
+    initialState: DeepPartial<S>,
+    middlewares: Middleware[]
+  ): Store;
 }
