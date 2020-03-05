@@ -1602,10 +1602,10 @@ eslint-config-prettier@^6.10.0:
   dependencies:
     get-stdin "^6.0.0"
 
-eslint-config-voodoocreation@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/eslint-config-voodoocreation/-/eslint-config-voodoocreation-1.0.7.tgz#01f5cd37820a6ace9dba76c228d30e051eb6598e"
-  integrity sha512-V9o3axIPI52Be4+cvEBGm3hEvgEXHG7CPJW1JdzqbhxbWm6fGdIvOhAef263QM9knt3/IMLlQhtMaWnB2H54pA==
+eslint-config-voodoocreation@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/eslint-config-voodoocreation/-/eslint-config-voodoocreation-1.0.8.tgz#db72dad478d61775b727a270d2fa14e7837861bb"
+  integrity sha512-j1qehbGsHXwM/tq19KTT+UebczJRh6QMrF7Up0KJ+htlEGgdsBHCeOEtw9UZyOQvJIoHuG9W0ucsg6Zy5cD5fQ==
   dependencies:
     "@typescript-eslint/parser" "^2.22.0"
     eslint-config-airbnb-typescript "^7.0.0"
