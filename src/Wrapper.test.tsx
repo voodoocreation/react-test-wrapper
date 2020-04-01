@@ -7,7 +7,7 @@ import Wrapper from "./Wrapper";
 describe("Wrapper", () => {
   describe("when using the different render methods", () => {
     const component = new Wrapper(Dummy).withDefaultProps({
-      value: "Default value"
+      value: "Default value",
     });
 
     describe("when using 'shallow'", () => {
@@ -93,7 +93,7 @@ describe("Wrapper", () => {
 
   describe("when using the props API", () => {
     const component = new Wrapper(Dummy).withDefaultProps({
-      value: "Default value"
+      value: "Default value",
     });
 
     it("renders with default props correctly", () => {
@@ -106,7 +106,7 @@ describe("Wrapper", () => {
     it("renders with test-specific props correctly", () => {
       const wrapper = component
         .withProps({
-          value: "Test value"
+          value: "Test value",
         })
         .render();
 

@@ -6,15 +6,15 @@ module.exports = {
       branches: 100,
       functions: 100,
       lines: 100,
-      statements: 100
-    }
+      statements: 100,
+    },
   },
   globals: {
     "ts-jest": {
       tsConfig: {
-        target: "es6"
-      }
-    }
+        target: "es6",
+      },
+    },
   },
   moduleDirectories: ["node_modules"],
   preset: "ts-jest",
@@ -25,7 +25,7 @@ module.exports = {
   testMatch: ["**/*.test.{ts,tsx}"],
   testURL: "http://localhost",
   transformIgnorePatterns: [
-    "/node_modules/(?!intl-messageformat|intl-messageformat-parser).+\\.js$"
+    "/node_modules/(?!intl-messageformat|intl-messageformat-parser).+\\.js$",
   ],
-  verbose: true
+  verbose: true,
 };

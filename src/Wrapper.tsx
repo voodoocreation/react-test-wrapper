@@ -54,7 +54,7 @@ export default class Wrapper<
 
     const props = this.defineProps() as P;
     const wrapper = mount<P>(<this.Component {...props} />, {
-      wrappingComponent: this.WrappingComponent
+      wrappingComponent: this.WrappingComponent,
     });
 
     this.reset();
@@ -108,7 +108,7 @@ export default class Wrapper<
     this.mergedProps = {
       ...this.defaultProps,
       ...this.scenarioProps,
-      children: this.scenarioChildren || this.defaultChildren
+      children: this.scenarioChildren || this.defaultChildren,
     };
 
     return this.mergedProps;

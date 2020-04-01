@@ -4,7 +4,7 @@ import { IntlConfig } from "react-intl";
 import WrapperWithIntl from "../src/WrapperWithIntl";
 
 export const messages = {
-  BUTTON: "Button"
+  BUTTON: "Button",
 };
 
 export default class TestWrapperWithIntl<
@@ -12,6 +12,6 @@ export default class TestWrapperWithIntl<
   P extends React.ComponentProps<C> = React.ComponentProps<C>
 > extends WrapperWithIntl<C, P> {
   protected intlProviderProps: Partial<IntlConfig> = {
-    messages
+    messages,
   };
 }

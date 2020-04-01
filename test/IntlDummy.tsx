@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   FormattedMessage,
   injectIntl,
-  WrappedComponentProps
+  WrappedComponentProps,
 } from "react-intl";
 import { connect } from "react-redux";
 
@@ -39,7 +39,7 @@ export const IntlDummy = injectIntl(Dummy);
 export const ConnectedDummy = injectIntl(
   connect(
     (state: TStoreState) => ({
-      value: state.test.value
+      value: state.test.value,
     }),
     actions
   )(Dummy)

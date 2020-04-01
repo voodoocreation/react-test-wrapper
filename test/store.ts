@@ -3,8 +3,9 @@ import {
   compose,
   createStore as reduxStore,
   DeepPartial,
-  Middleware
+  Middleware,
 } from "redux";
+import merge from "ts-deepmerge";
 
 import rootReducer, { initialState as rootInitialState } from "./reducer";
 
@@ -16,6 +17,6 @@ export const createStore = (
 ) =>
   reduxStore(
     rootReducer,
-    initialState,
+    merge(rootInitialState, initialState),
     compose(applyMiddleware(...middlewares))
   );

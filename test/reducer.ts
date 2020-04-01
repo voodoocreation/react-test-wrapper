@@ -8,21 +8,21 @@ export interface ITestState {
 }
 
 const testInitialState: ITestState = {
-  value: ""
+  value: "",
 };
 
 const testReducer = reducerWithInitialState(testInitialState).case(
   actions.setValue,
   (state, payload) => ({
     ...state,
-    value: payload
+    value: payload,
   })
 );
 
 export const initialState = {
-  test: testInitialState
+  test: testInitialState,
 };
 
 export default combineReducers({
-  test: testReducer
+  test: testReducer,
 });

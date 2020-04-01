@@ -6,8 +6,8 @@ import Wrapper from "../test/TestWrapperWithRedux";
 
 const initialState = {
   test: {
-    value: "Default value"
-  }
+    value: "Default value",
+  },
 };
 
 const component = new Wrapper(ConnectedDummy).withDefaultReduxState(
@@ -56,8 +56,8 @@ describe("WrapperWithRedux", () => {
       const wrapper = component
         .withReduxState({
           test: {
-            value: "Test value"
-          }
+            value: "Test value",
+          },
         })
         .mount();
 
@@ -173,8 +173,8 @@ describe("WrapperWithRedux", () => {
     it("updates the store", () => {
       expect(wrapper.store.getState()).toEqual({
         test: {
-          value: payload
-        }
+          value: payload,
+        },
       });
     });
 

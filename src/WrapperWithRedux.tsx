@@ -53,7 +53,7 @@ export default abstract class WrapperWithRedux<
     const wrapper: TWrapperWithStore<P, S> = mount<P>(
       <this.Component {...props} />,
       {
-        wrappingComponent: this.WrappingComponent
+        wrappingComponent: this.WrappingComponent,
       }
     );
 
@@ -88,11 +88,11 @@ export default abstract class WrapperWithRedux<
 
   protected beforeMount = () => {
     this.reduxStore = this.createStore(this.mergedReduxState, [
-      this.reduxHistoryMiddleware
+      this.reduxHistoryMiddleware,
     ]);
   };
 
-  protected reduxHistoryMiddleware: Middleware = () => next => action => {
+  protected reduxHistoryMiddleware: Middleware = () => (next) => (action) => {
     this.dispatchedActions.push(action);
     return next(action);
   };

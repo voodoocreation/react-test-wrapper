@@ -31,7 +31,7 @@ export class Dummy extends React.Component<IProps> {
 
 export const ConnectedDummy = connect(
   (state: TStoreState) => ({
-    value: state.test.value
+    value: state.test.value,
   }),
   actions
 )(Dummy);

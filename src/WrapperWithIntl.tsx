@@ -14,7 +14,7 @@ export default abstract class WrapperWithIntl<
       defaultLocale: "en",
       locale: navigator.language,
       messages: {},
-      ...this.intlProviderProps
+      ...this.intlProviderProps,
     };
   }
 
