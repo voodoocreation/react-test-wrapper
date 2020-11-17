@@ -222,6 +222,7 @@ export default class Wrapper<
   /**
    * Resets the scenario-specific children and props for the instance
    */
+  // eslint-disable-next-line
   protected reset() {
     this.scenarioChildren = undefined;
     this.scenarioProps = {};

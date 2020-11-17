@@ -178,6 +178,7 @@ export default abstract class WrapperWithRedux<
   /**
    * Resets all scenario-specific props, children and Redux store state for the instance
    */
+  // eslint-disable-next-line
   protected reset() {
     super.reset();
 
