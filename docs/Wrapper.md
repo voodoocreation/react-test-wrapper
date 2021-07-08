@@ -62,9 +62,29 @@ There's a `WrappingComponent` property on the `Wrapper` class that will automati
 This is very useful when testing components that require some form of context provider component to
 exist in the React tree.
 
+### For `enzyme`
 ```typescript jsx
 import * as React from "react";
-import { Wrapper as BaseWrapper } from "react-test-wrapper";
+import { Wrapper as BaseWrapper } from "react-test-wrapper/enzyme";
+
+export class WrapperWithCustomStuff<
+  C extends React.ComponentType<any>,
+  P extends React.ComponentProps<C> = React.ComponentProps<C>
+> extends BaseWrapper<C, P> {
+  protected WrappingComponent: React.FC = ({ children }) => (
+    <SomeProviderComponent>
+      {children}
+    </SomeProviderComponent>
+  );
+
+  // Add custom properties and methods here
+}
+```
+
+### For `react-testing-library`
+```typescript jsx
+import * as React from "react";
+import { Wrapper as BaseWrapper } from "react-test-wrapper/react-testing-library";
 
 export class WrapperWithCustomStuff<
   C extends React.ComponentType<any>,

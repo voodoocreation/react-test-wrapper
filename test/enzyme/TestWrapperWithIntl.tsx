@@ -1,7 +1,7 @@
 import * as React from "react";
 import { IntlConfig } from "react-intl";
 
-import WrapperWithIntl from "../src/WrapperWithIntl";
+import WrapperWithIntl from "../../src/enzyme/WrapperWithIntl";
 
 export const messages = {
   BUTTON: "Button",

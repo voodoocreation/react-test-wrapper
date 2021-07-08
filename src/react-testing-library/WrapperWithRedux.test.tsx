@@ -1,8 +1,8 @@
-import { ReactWrapper } from "enzyme";
+import { fireEvent } from "@testing-library/react";
 
-import * as actions from "../test/actions";
-import { ConnectedDummy } from "../test/Dummy";
-import Wrapper from "../test/TestWrapperWithRedux";
+import * as actions from "../../test/actions";
+import Wrapper from "../../test/react-testing-library/TestWrapperWithRedux";
+import { ReduxDummy } from "../../test/ReduxDummy";
 
 const initialState = {
   test: {
@@ -10,80 +10,48 @@ const initialState = {
   },
 };
 
-const component = new Wrapper(ConnectedDummy).withDefaultReduxState(
-  initialState
-);
+const component = new Wrapper(ReduxDummy).withDefaultReduxState(initialState);
 
 describe("WrapperWithRedux", () => {
-  describe("when using the different render methods", () => {
-    describe("when using 'shallow'", () => {
-      it("throws an error", () => {
-        expect(() => component.shallow()).toThrowError();
-      });
-    });
-
-    describe("when using 'mount'", () => {
-      const wrapper = component.mount();
-
-      it("returns ReactWrapper", () => {
-        expect(wrapper).toBeInstanceOf(ReactWrapper);
-      });
-
-      it("has the component in the tree", () => {
-        expect(wrapper.find(ConnectedDummy)).toHaveLength(1);
-      });
-
-      it("matches snapshot", () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    });
-
-    describe("when using 'render'", () => {
-      it("throws an error", () => {
-        expect(() => component.render()).toThrowError();
-      });
-    });
-  });
-
   describe("when using the reduxState API", () => {
     it("mounts with default reduxState correctly", () => {
-      const wrapper = component.mount();
+      const { getByText, getByClassName } = component.render();
 
-      expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
+      expect(getByClassName("Dummy")).toBeDefined();
+      expect(getByText("Default value")).toBeDefined();
     });
 
     it("mounts with test-specific reduxState correctly", () => {
-      const wrapper = component
+      const { getByText } = component
         .withReduxState({
           test: {
             value: "Test value",
           },
         })
-        .mount();
+        .render();
 
-      expect(wrapper.find(".Dummy--value").text()).toBe("Test value");
+      expect(getByText("Test value")).toBeDefined();
     });
 
     it("clears test-specific reduxState after previous test and uses default reduxState again", () => {
-      const wrapper = component.mount();
+      const { getByText } = component.render();
 
-      expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
+      expect(getByText("Default value")).toBeDefined();
     });
   });
 
   describe("when using the reduxHistory API", () => {
-    const wrapper = component.mount();
+    const { getByText } = component.render();
 
     it("starts with an empty history", () => {
       expect(component.reduxHistory).toEqual([]);
     });
 
     it("renders the correct value", () => {
-      expect(wrapper.find(".Dummy--value").text()).toBe("Default value");
+      expect(getByText("Default value")).toBeDefined();
     });
-
     it("clicks the button", () => {
-      wrapper.find(".Dummy--button").simulate("click");
+      fireEvent.click(getByText("Button"));
     });
 
     it("dispatches actions.setValue with expected payload", () => {
@@ -96,11 +64,11 @@ describe("WrapperWithRedux", () => {
     });
 
     it("renders the correct value", () => {
-      expect(wrapper.find(".Dummy--value").text()).toBe("Click");
+      expect(getByText("Click")).toBeDefined();
     });
 
     it("clicks the button again", () => {
-      wrapper.find(".Dummy--button").simulate("click");
+      fireEvent.click(getByText("Button"));
     });
 
     it("dispatches actions.setValue again with expected payload", () => {
@@ -112,8 +80,8 @@ describe("WrapperWithRedux", () => {
       expect(matchingActions[1].payload).toBe("Click");
     });
 
-    it("mounts the component again", () => {
-      component.mount();
+    it("renders the component again", () => {
+      component.render();
     });
 
     it("resets reduxHistory", () => {
@@ -121,7 +89,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("clicks the button again", () => {
-      wrapper.find(".Dummy--button").simulate("click");
+      fireEvent.click(getByText("Button"));
     });
 
     it("dispatches actions.setValue again with expected payload", () => {
@@ -143,25 +111,23 @@ describe("WrapperWithRedux", () => {
   });
 
   describe("when accessing the store", () => {
-    let wrapper: ReturnType<typeof component.mount>;
     const payload = "Dispatched value";
+    let result: ReturnType<typeof component.render>;
 
-    it("mounts the component", () => {
-      wrapper = component.mount();
+    it("renders the component", () => {
+      result = component.render();
     });
 
     it("has the expected state in the store", () => {
-      expect(wrapper.store.getState()).toEqual(initialState);
+      expect(result.store.getState()).toEqual(initialState);
     });
 
     it("renders the default value", () => {
-      expect(wrapper.find(".Dummy--value").text()).toBe(
-        initialState.test.value
-      );
+      expect(result.getByText(initialState.test.value)).toBeDefined();
     });
 
-    it("dispatches an action", () => {
-      wrapper.store.dispatch(actions.setValue(payload));
+    it("dispatches an action", async () => {
+      result.store.dispatch(actions.setValue(payload));
     });
 
     it("has the action in the history", () => {
@@ -171,7 +137,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("updates the store", () => {
-      expect(wrapper.store.getState()).toEqual({
+      expect(result.store.getState()).toEqual({
         test: {
           value: payload,
         },
@@ -179,7 +145,7 @@ describe("WrapperWithRedux", () => {
     });
 
     it("renders the new value", () => {
-      expect(wrapper.find(".Dummy--value").text()).toBe(payload);
+      expect(result.getByText(payload)).toBeDefined();
     });
   });
 });

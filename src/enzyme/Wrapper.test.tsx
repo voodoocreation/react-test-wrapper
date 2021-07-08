@@ -1,7 +1,7 @@
 import { ReactWrapper, ShallowWrapper } from "enzyme";
 import * as React from "react";
 
-import { Dummy } from "../test/Dummy";
+import { Dummy } from "../../test/Dummy";
 import Wrapper from "./Wrapper";
 
 describe("Wrapper", () => {
@@ -18,7 +18,7 @@ describe("Wrapper", () => {
       });
 
       it("has the correct root node", () => {
-        expect(wrapper.instance()).toBeInstanceOf(Dummy);
+        expect(wrapper.hasClass("Dummy")).toBe(true);
       });
 
       it("matches snapshot", () => {
@@ -31,10 +31,6 @@ describe("Wrapper", () => {
 
       it("returns ReactWrapper", () => {
         expect(wrapper).toBeInstanceOf(ReactWrapper);
-      });
-
-      it("has the correct root node", () => {
-        expect(wrapper.instance()).toBeInstanceOf(Dummy);
       });
 
       it("matches snapshot", () => {

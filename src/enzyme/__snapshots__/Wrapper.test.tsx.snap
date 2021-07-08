@@ -17,7 +17,9 @@ exports[`Wrapper when using the different render methods when using 'mount' matc
     />
     <button
       className="Dummy--button"
+      id="Dummy--button"
       onClick={[Function]}
+      type="button"
     >
       Button
     </button>
@@ -39,6 +41,8 @@ exports[`Wrapper when using the different render methods when using 'render' mat
   />
   <button
     class="Dummy--button"
+    id="Dummy--button"
+    type="button"
   >
     Button
   </button>
@@ -59,7 +63,9 @@ exports[`Wrapper when using the different render methods when using 'shallow' ma
   />
   <button
     className="Dummy--button"
+    id="Dummy--button"
     onClick={[Function]}
+    type="button"
   >
     Button
   </button>

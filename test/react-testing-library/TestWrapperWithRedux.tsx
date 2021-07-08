@@ -1,8 +1,8 @@
 import * as React from "react";
 import { DeepPartial, Middleware } from "redux";
 
-import WrapperWithRedux from "../src/WrapperWithRedux";
-import { createStore, TStoreState } from "./store";
+import WrapperWithRedux from "../../src/react-testing-library/WrapperWithRedux";
+import { createStore, TStoreState } from "../store";
 
 export default class TestWrapperWithRedux<
   C extends React.ComponentType<any>,

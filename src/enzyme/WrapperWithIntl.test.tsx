@@ -1,5 +1,5 @@
-import { IntlDummy } from "../test/IntlDummy";
-import Wrapper, { messages } from "../test/TestWrapperWithIntl";
+import Wrapper, { messages } from "../../test/enzyme/TestWrapperWithIntl";
+import { IntlDummy } from "../../test/IntlDummy";
 
 describe("WrapperWithIntl", () => {
   const component = new Wrapper(IntlDummy).withDefaultProps({

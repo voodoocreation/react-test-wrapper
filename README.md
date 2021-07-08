@@ -12,13 +12,15 @@ project requires additional functionality as part of your component test setup.
 The concept behind it is that you can create a single instance of the wrapper class at the top of
 your test file and define the defaults to use there, then in each test scenario you can reference
 the single instance and define the scenario-specific props/children etc. chaining the public methods,
-then finally calling the `mount`, `shallow` or `render` method to return the Enzyme wrapper and merged props.
+then finally calling the `mount`, `shallow` or `render` method (only `render` is available in the
+`react-testing-library` variants) to return the rendering result.
 
 The scenario-specific definitions are reset each time you call `mount`, `render` or `shallow`, which
 will ensure it reverts back to only the defaults set at the top and prevents scenario data from leaking
 between tests.
 
-For example:
+## Example
+### With `enzyme`
 ```typescript jsx
 const component = new Wrapper(SomeComponent)
   .withDefaultChildren(<div className="Child" />)
@@ -44,10 +46,36 @@ describe("when testing a scenario", () => {
 });
 ```
 
+### With `react-testing-library`
+```typescript jsx
+const component = new Wrapper(SomeComponent)
+  .withDefaultChildren(<div className="Child" />)
+  .withDefaultProps({
+    prop1: "Default value 1",
+    prop2: "Default value 2"
+  });
 
-The classes
------------
+describe("when testing a scenario", () => {
+  const { getByText } = component
+    .withProps({
+      prop1: "Scenario value 1"
+    })
+    .mount();
+
+  it("uses the scenario-specific value for prop1", () => {
+    expect(getByText("Scenario value 1")).toBeDefined();
+  });
+
+  it("uses the default value for prop2", () => {
+    expect(getByText("Default value 2")).toBeDefined();
+  });
+});
+```
+
+Package contents
+----------------
 
 - [`Wrapper`](./docs/Wrapper.md)
 - [`WrapperWithIntl`](./docs/WrapperWithIntl.md)
 - [`WrapperWithRedux`](./docs/WrapperWithRedux.md)
+- [Custom `react-testing-library` queries](./docs/react-testing-library/queries.md)

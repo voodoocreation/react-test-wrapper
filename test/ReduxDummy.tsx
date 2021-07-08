@@ -1,17 +1,20 @@
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as actions from "./actions";
+import * as selectors from "./selectors";
 
 interface IProps {
   children: React.ReactNode | React.ReactNode[];
-  onClick?: (value: string) => void;
-  value: string;
 }
 
-export const IntlDummy = ({ children, value, ...props }: IProps) => {
+export const ReduxDummy = ({ children }: IProps) => {
+  const dispatch = useDispatch();
+
+  const value = useSelector(selectors.getValue);
+
   const onClick = React.useCallback(() => {
-    if (props.onClick) {
-      props.onClick(value);
-    }
+    dispatch(actions.setValue("Click"));
   }, []);
 
   return (
@@ -19,12 +22,8 @@ export const IntlDummy = ({ children, value, ...props }: IProps) => {
       <div className="Dummy--value">{value}</div>
       <div className="Dummy--children">{children}</div>
       <button className="Dummy--button" type="button" onClick={onClick}>
-        <FormattedMessage id="BUTTON" />
+        Button
       </button>
     </div>
   );
-};
-
-IntlDummy.defaultProps = {
-  onClick: undefined,
 };
