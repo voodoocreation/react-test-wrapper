@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "declaration": true,
-    "outDir": "./dist/",
+    "outDir": "./",
     "sourceMap": true,
     "module": "commonjs",
     "target": "es5",
@@ -18,5 +18,5 @@
     "noUnusedParameters": true
   },
   "include": ["src/enzyme/index.ts", "src/react-testing-library/index.ts"],
-  "exclude": ["**/coverage/*", "**/dist/*", "**/node_modules/*"]
+  "exclude": ["**/coverage/*", "**/dist/*", "./react-testing-library", "./enzyme", "**/node_modules/*"]
 }

@@ -3,7 +3,7 @@
   "author": "Raice Hannay <voodoocreation@gmail.com>",
   "description": "A set of classes to make setting up React components for unit tests easy.",
   "license": "ISC",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "keywords": [
     "component",
     "enzyme",
@@ -21,8 +21,10 @@
     "unit-tests",
     "unit-testing"
   ],
+  "main": "dist/index.js",
   "files": [
-    "**/*"
+    "enzyme/*",
+    "react-testing-library/*"
   ],
   "scripts": {
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx}\"",
@@ -32,11 +34,7 @@
     "test:all": "npm-run-all format typecheck lint:fix test:coverage",
     "test:coverage": "cross-env NODE_ENV=test jest --no-cache --runInBand --coverage --config ./jest.config.js",
     "typecheck": "tsc",
-    "clean": "rimraf \"./dist/**/*\"",
-    "prezip": "cpx-fixed ./package.json ./dist/ && cpx-fixed ./src/webpack/index.html ./dist/webpack",
-    "zip": "cd ./dist && yarn pack",
-    "postzip": "cpx-fixed ./dist/*.tgz ./",
-    "prepublish": "npm-run-all clean typecheck zip"
+    "prepack": "rimraf ./enzyme && rimraf ./react-testing-library && tsc"
   },
   "repository": {
     "type": "git",
@@ -81,7 +79,6 @@
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
-    "cpx-fixed": "^1.6.0",
     "cross-env": "^7.0.3",
     "enzyme": "^3.11.0",
     "enzyme-to-json": "^3.6.2",

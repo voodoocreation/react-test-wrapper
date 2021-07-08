@@ -6,6 +6,8 @@ logs
 coverage
 dist
 lib
+enzyme/
+react-testing-library/
 
 #node
 node_modules
