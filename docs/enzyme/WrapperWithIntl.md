@@ -10,7 +10,7 @@ To use this class, you have to extend it and define your own `intlProviderProps`
 
 Public methods
 --------------
-The public methods are identical to the base [`Wrapper`](./Wrapper.md) class.
+The public methods are identical to the base [`Wrapper`](Wrapper.md) class.
 
 
 How to extend for use in your project
@@ -19,7 +19,7 @@ How to extend for use in your project
 ```typescript jsx
 import * as React from "react";
 import { IntlConfig } from "react-intl";
-import { WrapperWithIntl as BaseWrapper } from "react-test-wrapper";
+import { WrapperWithIntl as BaseWrapper } from "react-test-wrapper/enzyme";
 
 import messages from "./locales/en-NZ";
 

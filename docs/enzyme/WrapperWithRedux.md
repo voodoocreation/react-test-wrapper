@@ -56,7 +56,7 @@ dispatched as expected during interactions or in the component lifecycle.
 Public methods
 --------------
 
-In addition to the public methods provided by the base [`Wrapper`](./Wrapper.md) class, the following
+In addition to the public methods provided by the base [`Wrapper`](Wrapper.md) class, the following
 methods are available.
 
 Note:
@@ -76,12 +76,13 @@ Sets the scenario-specific Redux store state to be used - cleared after `mount`,
 Mounts the component with the Enzyme `mount` function, using the currently-set data.
 Returns a `ReactWrapper` instance, which also includes a `store` property.
 
+
 How to extend for use in your project
 -------------------------------------
 
 ```typescript jsx
 import * as React from "react";
-import { WrapperWithRedux as BaseWrapper } from "react-test-wrapper";
+import { WrapperWithRedux as BaseWrapper } from "react-test-wrapper/enzyme";
 
 import { createStore, TStoreState } from "../store";
 

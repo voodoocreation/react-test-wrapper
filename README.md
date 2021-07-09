@@ -75,7 +75,13 @@ describe("when testing a scenario", () => {
 Package contents
 ----------------
 
-- [`Wrapper`](./docs/Wrapper.md)
-- [`WrapperWithIntl`](./docs/WrapperWithIntl.md)
-- [`WrapperWithRedux`](./docs/WrapperWithRedux.md)
-- [Custom `react-testing-library` queries](./docs/react-testing-library/queries.md)
+## For `enzyme`
+- [`Wrapper`](/docs/enzyme/Wrapper.md)
+- [`WrapperWithIntl`](/docs/enzyme/WrapperWithIntl.md)
+- [`WrapperWithRedux`](/docs/enzyme/WrapperWithRedux.md)
+
+## For `react-testing-library`
+- [`Wrapper`](/docs/react-testing-library/Wrapper.md)
+- [`WrapperWithIntl`](/docs/react-testing-library/WrapperWithIntl.md)
+- [`WrapperWithRedux`](/docs/react-testing-library/WrapperWithRedux.md)
+- [Custom `react-testing-library` queries](/docs/react-testing-library/queries.md)

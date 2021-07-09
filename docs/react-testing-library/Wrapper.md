@@ -10,8 +10,8 @@ As with all of these classes, you can extend it to implement your own additional
 Protected abstract methods to define when extending
 ---------------------------------------------------
 
-### `beforeMount`
-This method is called before `mount`, `render` or `shallow` are called. The intention is to use this
+### `beforeRender`
+This method is called before `render` is called. The intention is to use this
 when defining any instance properties that need to be passed as props in your `WrappingComponent`,
 such as the Redux store instance (see [`WrapperWithRedux`](./WrapperWithRedux.md) for example).
 
@@ -34,22 +34,15 @@ Sets the default children to be used for the wrapper instance.
 Sets the default props to be used for the wrapper instance.
 
 ### `withChildren`
-Sets the scenario-specific children to be used - cleared after `mount`, `render` or `shallow` are called.
+Sets the scenario-specific children to be used - cleared afte `render` is called.
 
 ### `withProps`
-Sets the scenario-specific props to be used - cleared after `mount`, `render` or `shallow` are called.
-
-### `mount`
-Mounts the component with the Enzyme `mount` function, using the currently-set data.
-Returns a `ReactWrapper` instance.
+Sets the scenario-specific props to be used - cleared after `render` is called.
 
 ### `render`
-Mounts the component with the Enzyme `render` function, using the currently-set data.
-Returns a `ShallowWrapper` instance.
+Mounts the component with the `react-testing-library` `render` function, using the currently-set data.
+Returns the `RenderResult` returned by the `render` function.
 
-### `shallow`
-Mounts the component with the Enzyme `shallow` function, using the currently-set data.
-Returns a `Cheerio` instance.
 
 How to extend
 -------------
@@ -58,30 +51,10 @@ To extend this class to implement your own setup functionality, you can do so as
 example below.
 
 There's a `WrappingComponent` property on the `Wrapper` class that will automatically be used by
-`mount`, `render` and `shallow` when it's defined, to wrap the component being tested.
+`render` when it's defined, to wrap the component being tested.
 This is very useful when testing components that require some form of context provider component to
 exist in the React tree.
 
-### For `enzyme`
-```typescript jsx
-import * as React from "react";
-import { Wrapper as BaseWrapper } from "react-test-wrapper/enzyme";
-
-export class WrapperWithCustomStuff<
-  C extends React.ComponentType<any>,
-  P extends React.ComponentProps<C> = React.ComponentProps<C>
-> extends BaseWrapper<C, P> {
-  protected WrappingComponent: React.FC = ({ children }) => (
-    <SomeProviderComponent>
-      {children}
-    </SomeProviderComponent>
-  );
-
-  // Add custom properties and methods here
-}
-```
-
-### For `react-testing-library`
 ```typescript jsx
 import * as React from "react";
 import { Wrapper as BaseWrapper } from "react-test-wrapper/react-testing-library";
