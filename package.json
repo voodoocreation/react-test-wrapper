@@ -105,6 +105,6 @@
     "typescript-fsa-reducers": "^1.2.2"
   },
   "dependencies": {
-    "ts-deepmerge": "^1.0.8"
+    "ts-deepmerge": "^2.0.2"
   }
 }
