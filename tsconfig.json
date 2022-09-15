@@ -3,7 +3,7 @@
     "baseUrl": ".",
     "declaration": true,
     "outDir": "./",
-    "sourceMap": true,
+    "sourceMap": false,
     "module": "commonjs",
     "target": "es5",
     "lib": ["dom", "esnext"],
@@ -18,5 +18,11 @@
     "noUnusedParameters": true
   },
   "include": ["src/enzyme/index.ts", "src/react-testing-library/index.ts"],
-  "exclude": ["**/coverage/*", "**/dist/*", "./react-testing-library", "./enzyme", "**/node_modules/*"]
+  "exclude": [
+    "**/coverage/*",
+    "**/dist/*",
+    "./react-testing-library",
+    "./enzyme",
+    "**/node_modules/*"
+  ]
 }

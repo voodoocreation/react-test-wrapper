@@ -9,21 +9,24 @@ module.exports = {
       statements: 100,
     },
   },
-  globals: {
-    "ts-jest": {
-      tsconfig: {
-        target: "es6",
-      },
-    },
-  },
   moduleDirectories: ["node_modules"],
-  preset: "ts-jest",
   roots: ["<rootDir>/src"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
   testEnvironment: "jsdom",
+  testEnvironmentOptions: { url: "http://localhost" },
   testMatch: ["**/*.test.{ts,tsx}"],
-  testURL: "http://localhost",
+  transform: {
+    "^.+.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig: {
+          sourceMap: true,
+          target: "es6",
+        },
+      },
+    ],
+  },
   transformIgnorePatterns: [
     "/node_modules/(?!intl-messageformat|intl-messageformat-parser).+\\.js$",
   ],

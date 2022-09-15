@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormattedMessage } from "react-intl";
 
 interface IProps {
-  children: React.ReactNode | React.ReactNode[];
+  children: React.ReactNode;
   onClick?: (value: string) => void;
   value: string;
 }

@@ -11,7 +11,7 @@ const getMissingError = (attr: string) => (_: any, value: string) =>
   `Unable to find an element where ${attr} matches ${value}`;
 
 const queryAllById: TFn = (container, id) =>
-  Array.from(container.querySelectorAll(`.${id}`));
+  Array.from(container.querySelectorAll(`#${id}`));
 
 const queryAllByClassName: TFn = (container, id) =>
   Array.from(container.querySelectorAll(`.${id}`));
@@ -30,7 +30,7 @@ const [
   getAllByClassName,
   getByClassName,
   findAllByClassName,
-  findByClassName
+  findByClassName,
 ] = buildQueries(
   queryAllByClassName,
   getMultipleError("className"),
@@ -42,13 +42,12 @@ const [
   getAllBySelector,
   getBySelector,
   findAllBySelector,
-  findBySelector
+  findBySelector,
 ] = buildQueries(
   queryAllBySelector,
   getMultipleError("tag name"),
   getMissingError("tag name")
 );
-
 
 export {
   queryById,
@@ -68,5 +67,5 @@ export {
   getAllBySelector,
   getBySelector,
   findAllBySelector,
-  findBySelector
+  findBySelector,
 };
