@@ -72,6 +72,9 @@ Sets the default Redux store state to be used for the wrapper instance.
 ### `withReduxState`
 Sets the scenario-specific Redux store state to be used - cleared after `mount`, `render` or `shallow` are called.
 
+### `withMergedReduxArrays`
+Toggles whether arrays get merged or not in Redux state.
+
 ### `mount`
 Mounts the component with the Enzyme `mount` function, using the currently-set data.
 Returns a `ReactWrapper` instance, which also includes a `store` property.

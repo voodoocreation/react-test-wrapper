@@ -65,6 +65,9 @@ Sets the default Redux store state to be used for the wrapper instance.
 ### `withReduxState`
 Sets the scenario-specific Redux store state to be used - cleared after `render` is called.
 
+### `withMergedReduxArrays`
+Toggles whether arrays get merged or not in Redux state.
+
 ### `render`
 Mounts the component with the `react-testing-library` `render` function, using the currently-set data.
 Returns a `RenderResult` instance, which also includes a `store` property.
