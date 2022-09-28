@@ -33,6 +33,11 @@ export default abstract class WrapperWithRedux<
   // region Properties that remain throughout instance lifecycle
 
   /**
+   * Determines whether arrays in Redux state are merged when rendering the component.
+   */
+  protected isMergingReduxArrays = true;
+
+  /**
    * The default Redux store state for all test scenarios for the current test suite.
    *
    * This is set by the `.withDefaultReduxState()` method.
@@ -75,8 +80,23 @@ export default abstract class WrapperWithRedux<
    * Returns the merged Redux store state used by the current test scenario
    */
   protected get mergedReduxState(): S {
-    return merge(this.defaultReduxState, this.scenarioReduxState) as S;
+    return merge.withOptions(
+      { mergeArrays: this.isMergingReduxArrays },
+      this.defaultReduxState,
+      this.scenarioReduxState
+    ) as S;
   }
+
+  /**
+   * Toggles whether to merge arrays in the Redux state
+   *
+   * @param value The new value
+   */
+  public withMergedReduxArrays = (value: boolean) => {
+    this.isMergingReduxArrays = value;
+
+    return this;
+  };
 
   /**
    * Sets the default Redux store state used by all test scenarios for the current test suite.

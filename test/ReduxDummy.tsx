@@ -12,6 +12,7 @@ export const ReduxDummy = ({ children }: IProps) => {
   const dispatch = useDispatch();
 
   const value = useSelector(selectors.getValue);
+  const array = useSelector(selectors.getArray);
 
   const onClick = React.useCallback(() => {
     dispatch(actions.setValue("Click"));
@@ -20,6 +21,11 @@ export const ReduxDummy = ({ children }: IProps) => {
   return (
     <div className="Dummy">
       <div className="Dummy--value">{value}</div>
+      <ul className="Dummy--array">
+        {array.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
       <div className="Dummy--children">{children}</div>
       <button className="Dummy--button" type="button" onClick={onClick}>
         Button

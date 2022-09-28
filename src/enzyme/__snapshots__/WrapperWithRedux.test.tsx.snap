@@ -10,6 +10,15 @@ exports[`WrapperWithRedux when using the different render methods when using 'mo
     >
       Default value
     </div>
+    <ul
+      className="Dummy--array"
+    >
+      <li
+        key="item-a"
+      >
+        item-a
+      </li>
+    </ul>
     <div
       className="Dummy--children"
     />

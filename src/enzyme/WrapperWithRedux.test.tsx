@@ -6,6 +6,7 @@ import { ReduxDummy } from "../../test/ReduxDummy";
 
 const initialState = {
   test: {
+    array: ["item-a"],
     value: "Default value",
   },
 };
@@ -60,6 +61,20 @@ describe("WrapperWithRedux", () => {
         .mount();
 
       expect(wrapper.find(".Dummy--value").text()).toBe("Test value");
+    });
+
+    it("doesn't merge arrays when withMergedReduxArrays(false) is used", () => {
+      const wrapper = component
+        .withMergedReduxArrays(false)
+        .withReduxState({
+          test: {
+            array: ["item-b"],
+          },
+        })
+        .mount();
+
+      expect(wrapper.find("li")).toHaveLength(1);
+      expect(wrapper.find("li").text()).toBe("item-b");
     });
 
     it("clears test-specific reduxState after previous test and uses default reduxState again", () => {
@@ -171,6 +186,7 @@ describe("WrapperWithRedux", () => {
     it("updates the store", () => {
       expect(wrapper.store.getState()).toEqual({
         test: {
+          array: initialState.test.array,
           value: payload,
         },
       });

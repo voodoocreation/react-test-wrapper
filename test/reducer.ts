@@ -4,10 +4,12 @@ import { reducerWithInitialState } from "typescript-fsa-reducers";
 import * as actions from "./actions";
 
 export interface ITestState {
+  array: string[];
   value: string;
 }
 
 const testInitialState: ITestState = {
+  array: [],
   value: "",
 };
 
