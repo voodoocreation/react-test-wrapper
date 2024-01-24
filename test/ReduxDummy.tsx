@@ -1,8 +1,8 @@
 import * as React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import * as actions from "./actions";
-import * as selectors from "./selectors";
+import * as actions from "./actions.js";
+import * as selectors from "./selectors.js";
 
 interface IProps {
   children: React.ReactNode | React.ReactNode[];

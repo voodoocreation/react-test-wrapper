@@ -22,7 +22,7 @@ const queryAllBySelector: TFn = (container, id) =>
 const [queryById, getAllById, getById, findAllById, findById] = buildQueries(
   queryAllById,
   getMultipleError("id"),
-  getMissingError("id")
+  getMissingError("id"),
 );
 
 const [
@@ -34,7 +34,7 @@ const [
 ] = buildQueries(
   queryAllByClassName,
   getMultipleError("className"),
-  getMissingError("className")
+  getMissingError("className"),
 );
 
 const [
@@ -46,26 +46,26 @@ const [
 ] = buildQueries(
   queryAllBySelector,
   getMultipleError("tag name"),
-  getMissingError("tag name")
+  getMissingError("tag name"),
 );
 
-export {
-  queryById,
-  queryAllById,
-  findById,
-  findAllById,
-  getAllById,
-  getById,
-  queryByClassName,
-  queryAllByClassName,
-  findByClassName,
+export const queries = {
   findAllByClassName,
-  getByClassName,
-  getAllByClassName,
-  queryBySelector,
-  queryAllBySelector,
-  getAllBySelector,
-  getBySelector,
+  findAllById,
   findAllBySelector,
+  findByClassName,
+  findById,
   findBySelector,
+  getAllByClassName,
+  getAllById,
+  getAllBySelector,
+  getByClassName,
+  getById,
+  getBySelector,
+  queryAllByClassName,
+  queryAllById,
+  queryAllBySelector,
+  queryByClassName,
+  queryById,
+  queryBySelector,
 };

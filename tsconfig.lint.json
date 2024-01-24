@@ -1,4 +1,9 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["./src/**/*"]
+  "exclude": [
+    "**/coverage/*",
+    "**/node_modules/*",
+    "**/cjs/*",
+    "**/esm/*"
+  ]
 }

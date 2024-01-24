@@ -1,7 +1,8 @@
-import { IntlDummy } from "../../test/IntlDummy";
-import Wrapper, {
+import { IntlDummy } from "../../test/IntlDummy.js";
+import {
   messages,
-} from "../../test/react-testing-library/TestWrapperWithIntl";
+  Wrapper,
+} from "../../test/react-testing-library/TestWrapperWithIntl.js";
 
 describe("WrapperWithIntl", () => {
   const component = new Wrapper(IntlDummy).withDefaultProps({

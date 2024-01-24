@@ -1,7 +1,7 @@
+import { createReducer } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { reducerWithInitialState } from "typescript-fsa-reducers";
 
-import * as actions from "./actions";
+import * as actions from "./actions.js";
 
 export interface ITestState {
   array: string[];
@@ -13,12 +13,11 @@ const testInitialState: ITestState = {
   value: "",
 };
 
-const testReducer = reducerWithInitialState(testInitialState).case(
-  actions.setValue,
-  (state, payload) => ({
+const testReducer = createReducer(testInitialState, (builder) =>
+  builder.addCase(actions.setValue, (state, { payload }) => ({
     ...state,
     value: payload,
-  })
+  })),
 );
 
 export const initialState = {

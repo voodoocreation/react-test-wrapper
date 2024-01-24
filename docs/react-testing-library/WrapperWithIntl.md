@@ -19,7 +19,7 @@ How to extend for use in your project
 ```typescript jsx
 import * as React from "react";
 import { IntlConfig } from "react-intl";
-import { WrapperWithIntl as BaseWrapper } from "react-test-wrapper/react-testing-library";
+import { WrapperWithIntl as BaseWrapper } from "react-test-wrapper";
 
 import messages from "./locales/en-NZ";
 

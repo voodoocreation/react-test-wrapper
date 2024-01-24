@@ -12,42 +12,16 @@ project requires additional functionality as part of your component test setup.
 The concept behind it is that you can create a single instance of the wrapper class at the top of
 your test file and define the defaults to use there, then in each test scenario you can reference
 the single instance and define the scenario-specific props/children etc. chaining the public methods,
-then finally calling the `mount`, `shallow` or `render` method (only `render` is available in the
-`react-testing-library` variants) to return the rendering result.
+then finally calling the `render` method to return the rendering result.
 
-The scenario-specific definitions are reset each time you call `mount`, `render` or `shallow`, which
+The scenario-specific definitions are reset each time you call `render`, which
 will ensure it reverts back to only the defaults set at the top and prevents scenario data from leaking
 between tests.
 
 ## Example
-### With `enzyme`
 ```typescript jsx
-const component = new Wrapper(SomeComponent)
-  .withDefaultChildren(<div className="Child" />)
-  .withDefaultProps({
-    prop1: "Default value 1",
-    prop2: "Default value 2"
-  });
+import { Wrapper } from "react-test-wrapper";
 
-describe("when testing a scenario", () => {
-  const wrapper = component
-    .withProps({
-      prop1: "Scenario value 1"
-    })
-    .mount();
-
-  it("uses the scenario-specific value for prop1", () => {
-    expect(wrapper.find(".SomeComponent--prop1").text()).toBe("Scenario value 1");
-  });
-
-  it("uses the default value for prop2", () => {
-    expect(wrapper.find(".SomeComponent--prop2").text()).toBe("Default value 1");
-  });
-});
-```
-
-### With `react-testing-library`
-```typescript jsx
 const component = new Wrapper(SomeComponent)
   .withDefaultChildren(<div className="Child" />)
   .withDefaultProps({
@@ -60,7 +34,7 @@ describe("when testing a scenario", () => {
     .withProps({
       prop1: "Scenario value 1"
     })
-    .mount();
+    .render();
 
   it("uses the scenario-specific value for prop1", () => {
     expect(getByText("Scenario value 1")).toBeDefined();
@@ -74,13 +48,6 @@ describe("when testing a scenario", () => {
 
 Package contents
 ----------------
-
-## For `enzyme`
-- [`Wrapper`](/docs/enzyme/Wrapper.md)
-- [`WrapperWithIntl`](/docs/enzyme/WrapperWithIntl.md)
-- [`WrapperWithRedux`](/docs/enzyme/WrapperWithRedux.md)
-
-## For `react-testing-library`
 - [`Wrapper`](/docs/react-testing-library/Wrapper.md)
 - [`WrapperWithIntl`](/docs/react-testing-library/WrapperWithIntl.md)
 - [`WrapperWithRedux`](/docs/react-testing-library/WrapperWithRedux.md)

@@ -1,18 +1,17 @@
 import * as React from "react";
-import { DeepPartial, Middleware } from "redux";
+import { Middleware } from "redux";
 
-import WrapperWithRedux from "../../src/react-testing-library/WrapperWithRedux";
-import { createStore, TStoreState } from "../store";
+import { WrapperWithRedux } from "../../src/react-testing-library/WrapperWithRedux.js";
+import { DeepPartial } from "../../src/types.js";
+import { createStore, TStoreState } from "../store.js";
 
-export default class TestWrapperWithRedux<
+export class Wrapper<
   C extends React.ComponentType<any>,
-  S extends {} = TStoreState,
-  P extends React.ComponentProps<C> = React.ComponentProps<C>
+  S extends Record<string, any> = TStoreState,
+  P extends React.ComponentProps<C> = React.ComponentProps<C>,
 > extends WrapperWithRedux<C, S, P> {
-  protected createStore(
+  protected createStore = (
     initialState: DeepPartial<S>,
-    middlewares: Middleware[]
-  ) {
-    return createStore(initialState, middlewares);
-  }
+    middlewares: Middleware[],
+  ) => createStore(initialState, middlewares);
 }

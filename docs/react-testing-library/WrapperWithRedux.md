@@ -9,13 +9,6 @@ define your own `createStore` method to return an instance of your Redux store, 
 `initialState` and `middlewares` that this class provides - it is important to ensure that your
 store uses these, because if it disregards them, none of the methods this class provides will function.
 
-Extensions to the returned `ReduxWrapper`
------------------------------------------
-
-The return type of the `mount` method extends Enzyme's `ReactWrapper` by adding a store property to
-it, so you can access the store instance that the component was mounted with. This is useful for
-some edge cases where you may want to test how your component reacts to actions being dispatched
-outside of the component's scope.
 
 For example:
 ```typescript jsx
@@ -28,7 +21,7 @@ describe("when testing a scenario", () => {
         value: "Scenario value 1"
       }
     })
-    .mount();
+    .render();
 
   it("renders the initial value", () => {
     expect(wrapper.find(".SomeComponent--value").text()).toBe("Initial value");
@@ -69,7 +62,7 @@ Sets the scenario-specific Redux store state to be used - cleared after `render`
 Toggles whether arrays get merged or not in Redux state.
 
 ### `render`
-Mounts the component with the `react-testing-library` `render` function, using the currently-set data.
+Mounts the component with the React Testing Library `render` function, using the currently-set data.
 Returns a `RenderResult` instance, which also includes a `store` property.
 
 
@@ -78,7 +71,7 @@ How to extend for use in your project
 
 ```typescript jsx
 import * as React from "react";
-import { WrapperWithRedux as BaseWrapper } from "react-test-wrapper/react-testing-library";
+import { WrapperWithRedux as BaseWrapper } from "react-test-wrapper";
 
 import { createStore, TStoreState } from "../store";
 

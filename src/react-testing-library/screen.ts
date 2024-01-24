@@ -4,7 +4,7 @@ import {
   Screen,
 } from "@testing-library/react";
 
-import * as customQueries from "./queries";
+import { queries as customQueries } from "./queries.js";
 
 const queries = {
   ...baseQueries,
@@ -18,4 +18,4 @@ for (const [name, fn] of Object.entries(queries)) {
   screen[name] = fn.bind(null, document.body);
 }
 
-export default screen;
+export { screen };

@@ -1,4 +1,4 @@
-import { TStoreState } from "./store";
+import { TStoreState } from "./store.js";
 
 export const getValue = (store: TStoreState) => store.test.value;
 

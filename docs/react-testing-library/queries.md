@@ -1,5 +1,5 @@
-Custom `react-testing-library` queries
-======================================
+Custom React Testing Library queries
+====================================
 
 Because this functionality is missing by default and is still useful, the following custom queries
 are provided.
@@ -35,7 +35,7 @@ The internals of all of the `Wrapper` classes integrate with the `render` functi
 `react-testing-library` to include the custom queries to be returned along with everything else that's
 usually returned there (such as their existing query functions).
 ```typescript
-import { Wrapper } from "react-test-wrapper/react-testing-library";
+import { Wrapper } from "react-test-wrapper";
 
 const component = new Wrapper(SomeComponent);
 
@@ -56,7 +56,7 @@ describe("when testing a scenario", () => {
 If you want to use `screen`, just import the one from this package instead of their one.
 
 ```typescript
-import { screen, Wrapper } from "react-test-wrapper/react-testing-library";
+import { screen, Wrapper } from "react-test-wrapper";
 
 const component = new Wrapper(SomeComponent);
 

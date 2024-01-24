@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import { Dummy } from "../../test/Dummy";
-import screen from "./screen";
-import Wrapper from "./Wrapper";
+import { screen } from "./screen.js";
+import { Wrapper } from "./Wrapper.js";
+import { Dummy } from "../../test/Dummy.js";
 
 describe("Wrapper", () => {
   describe("when using the custom queries", () => {
@@ -35,7 +35,7 @@ describe("Wrapper", () => {
 
   describe("when using the children API", () => {
     const component = new Wrapper(Dummy).withDefaultChildren(
-      <div>Default children</div>
+      <div>Default children</div>,
     );
 
     it("renders default children correctly", () => {

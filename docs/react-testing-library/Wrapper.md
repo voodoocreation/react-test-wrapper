@@ -57,7 +57,7 @@ exist in the React tree.
 
 ```typescript jsx
 import * as React from "react";
-import { Wrapper as BaseWrapper } from "react-test-wrapper/react-testing-library";
+import { Wrapper as BaseWrapper } from "react-test-wrapper";
 
 export class WrapperWithCustomStuff<
   C extends React.ComponentType<any>,

@@ -7,11 +7,12 @@ import {
 } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
-import { AnyAction, DeepPartial, Middleware, Store } from "redux";
-import merge from "ts-deepmerge";
+import { Middleware, Store } from "redux";
+import { merge } from "ts-deepmerge";
 
-import * as customQueries from "./queries";
-import Wrapper from "./Wrapper";
+import { queries as customQueries } from "./queries.js";
+import { Wrapper } from "./Wrapper.js";
+import { DeepPartial } from "../types.js";
 
 const queries = {
   ...defaultQueries,
@@ -25,10 +26,10 @@ type TResultWithStore<Q extends Queries, S> = RenderResult<Q> & {
 /**
  * A class to provide a simple method of setting up your React component tests for apps that use Redux.
  */
-export default abstract class WrapperWithRedux<
+export abstract class WrapperWithRedux<
   C extends React.ComponentType<any>,
-  S,
-  P extends React.ComponentProps<C> = React.ComponentProps<C>
+  S extends Record<string, any>,
+  P extends React.ComponentProps<C> = React.ComponentProps<C>,
 > extends Wrapper<C, P> {
   // region Properties that remain throughout instance lifecycle
 
@@ -51,7 +52,7 @@ export default abstract class WrapperWithRedux<
   /**
    * An array of all actions dispatched during the test scenario lifecycle
    */
-  protected dispatchedActions: AnyAction[] = [];
+  protected dispatchedActions: any[] = [];
 
   /**
    * The Redux store state specific to the current test scenario.
@@ -83,7 +84,7 @@ export default abstract class WrapperWithRedux<
     return merge.withOptions(
       { mergeArrays: this.isMergingReduxArrays },
       this.defaultReduxState,
-      this.scenarioReduxState
+      this.scenarioReduxState,
     ) as S;
   }
 
@@ -141,7 +142,7 @@ export default abstract class WrapperWithRedux<
       {
         queries,
         wrapper: this.WrappingComponent,
-      }
+      },
     );
 
     this.reset();
@@ -182,9 +183,9 @@ export default abstract class WrapperWithRedux<
   /**
    * The component to wrap the component you're testing - provides the Redux `Provider` component
    */
-  protected WrappingComponent: React.FC = ({ children }) => (
-    <Provider store={this.reduxStore!}>{children}</Provider>
-  );
+  protected WrappingComponent: React.FC<React.PropsWithChildren> = ({
+    children,
+  }) => <Provider store={this.reduxStore!}>{children}</Provider>;
 
   /**
    * Resets all scenario-specific props, children and Redux store state for the instance
@@ -206,6 +207,6 @@ export default abstract class WrapperWithRedux<
    */
   protected abstract createStore(
     initialState: DeepPartial<S>,
-    middlewares: Middleware[]
+    middlewares: Middleware[],
   ): Store;
 }

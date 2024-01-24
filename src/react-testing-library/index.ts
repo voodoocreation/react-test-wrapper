@@ -1,8 +1,6 @@
 // istanbul ignore file
-import * as queries from "./queries";
-import screen from "./screen";
-import Wrapper from "./Wrapper";
-import WrapperWithIntl from "./WrapperWithIntl";
-import WrapperWithRedux from "./WrapperWithRedux";
-
-export { Wrapper, WrapperWithIntl, WrapperWithRedux, queries, screen };
+export * from "./queries.js";
+export * from "./screen.js";
+export * from "./Wrapper.js";
+export * from "./WrapperWithIntl.js";
+export * from "./WrapperWithRedux.js";

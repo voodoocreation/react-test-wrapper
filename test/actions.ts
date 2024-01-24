@@ -1,5 +1,5 @@
-import actionCreatorFactory from "typescript-fsa";
+import { createAction } from "@reduxjs/toolkit";
 
-const createAction = actionCreatorFactory("TEST");
+const PREFIX = "TEST";
 
-export const setValue = createAction<string>("SET_VALUE");
+export const setValue = createAction<string>(`${PREFIX}/SET_VALUE`);

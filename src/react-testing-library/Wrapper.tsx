@@ -5,7 +5,7 @@ import {
 } from "@testing-library/react";
 import * as React from "react";
 
-import * as customQueries from "./queries";
+import { queries as customQueries } from "./queries.js";
 
 const queries = {
   ...defaultQueries,
@@ -15,9 +15,9 @@ const queries = {
 /**
  * A class to provide a simple interface for setting up your React component unit tests
  */
-export default class Wrapper<
+export class Wrapper<
   C extends React.ComponentType<any>,
-  P extends React.ComponentProps<C> = React.ComponentProps<C>
+  P extends React.ComponentProps<C> = React.ComponentProps<C>,
 > {
   // region Properties that are implemented in classes that extend Wrapper
 

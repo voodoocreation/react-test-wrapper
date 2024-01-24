@@ -1,8 +1,8 @@
 import { fireEvent } from "@testing-library/react";
 
-import * as actions from "../../test/actions";
-import Wrapper from "../../test/react-testing-library/TestWrapperWithRedux";
-import { ReduxDummy } from "../../test/ReduxDummy";
+import * as actions from "../../test/actions.js";
+import { Wrapper } from "../../test/react-testing-library/TestWrapperWithRedux.js";
+import { ReduxDummy } from "../../test/ReduxDummy.js";
 
 const initialState = {
   test: {
@@ -72,7 +72,7 @@ describe("WrapperWithRedux", () => {
 
     it("dispatches actions.setValue with expected payload", () => {
       const matchingActions = component.reduxHistory.filter(
-        actions.setValue.match
+        actions.setValue.match,
       );
 
       expect(matchingActions).toHaveLength(1);
@@ -89,7 +89,7 @@ describe("WrapperWithRedux", () => {
 
     it("dispatches actions.setValue again with expected payload", () => {
       const matchingActions = component.reduxHistory.filter(
-        actions.setValue.match
+        actions.setValue.match,
       );
 
       expect(matchingActions).toHaveLength(2);
@@ -110,7 +110,7 @@ describe("WrapperWithRedux", () => {
 
     it("dispatches actions.setValue again with expected payload", () => {
       const matchingActions = component.reduxHistory.filter(
-        actions.setValue.match
+        actions.setValue.match,
       );
 
       expect(matchingActions).toHaveLength(1);
@@ -148,7 +148,7 @@ describe("WrapperWithRedux", () => {
 
     it("has the action in the history", () => {
       expect(
-        component.reduxHistory.filter(actions.setValue.match)
+        component.reduxHistory.filter(actions.setValue.match),
       ).toHaveLength(1);
     });
 
