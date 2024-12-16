@@ -1,8 +1,8 @@
 `HookWrapper`
 =============
 
-This abstract class has a `wrapper` property defined which wraps the component in a Redux `Provider`,
-passing in the return value from the `createStore` method.
+This abstract class uses your application's configured `Wrapper` to ensure hooks can be mounted with
+the same context without additional complexity.
 
 To use this class, you have to extend it and set the `wrapper` property to an instance of your application's
 pre-configured `Wrapper` class. This is to keep things scalable and able to support any type of `Wrapper`
