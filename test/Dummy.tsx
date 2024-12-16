@@ -28,7 +28,3 @@ export const Dummy = ({ children, value, ...props }: IProps) => {
     </div>
   );
 };
-
-Dummy.defaultProps = {
-  onClick: undefined,
-};

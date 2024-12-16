@@ -1,6 +1,7 @@
-import { fireEvent } from "@testing-library/react";
+import { userEvent } from "@testing-library/user-event";
 
 import * as actions from "../../test/actions.js";
+import { Dummy } from "../../test/Dummy.js";
 import { Wrapper } from "../../test/react-testing-library/TestWrapperWithRedux.js";
 import { ReduxDummy } from "../../test/ReduxDummy.js";
 
@@ -14,6 +15,22 @@ const initialState = {
 const component = new Wrapper(ReduxDummy).withDefaultReduxState(initialState);
 
 describe("WrapperWithRedux", () => {
+  describe("when updating props", () => {
+    const componentWithProps = new Wrapper(Dummy).withDefaultProps({
+      value: "Default value",
+    });
+
+    it("mounts with default props", () => {
+      const { getByText, updateProps } = componentWithProps.render();
+
+      expect(getByText("Default value")).toBeDefined();
+
+      updateProps({ value: "New value" });
+
+      expect(getByText("New value")).toBeDefined();
+    });
+  });
+
   describe("when using the reduxState API", () => {
     it("mounts with default reduxState correctly", () => {
       const { getByText, getByClassName } = component.render();
@@ -66,8 +83,8 @@ describe("WrapperWithRedux", () => {
     it("renders the correct value", () => {
       expect(getByText("Default value")).toBeDefined();
     });
-    it("clicks the button", () => {
-      fireEvent.click(getByText("Button"));
+    it("clicks the button", async () => {
+      await userEvent.click(getByText("Button"));
     });
 
     it("dispatches actions.setValue with expected payload", () => {
@@ -83,8 +100,8 @@ describe("WrapperWithRedux", () => {
       expect(getByText("Click")).toBeDefined();
     });
 
-    it("clicks the button again", () => {
-      fireEvent.click(getByText("Button"));
+    it("clicks the button again", async () => {
+      await userEvent.click(getByText("Button"));
     });
 
     it("dispatches actions.setValue again with expected payload", () => {
@@ -104,8 +121,8 @@ describe("WrapperWithRedux", () => {
       expect(component.reduxHistory).toEqual([]);
     });
 
-    it("clicks the button again", () => {
-      fireEvent.click(getByText("Button"));
+    it("clicks the button again", async () => {
+      await userEvent.click(getByText("Button"));
     });
 
     it("dispatches actions.setValue again with expected payload", () => {

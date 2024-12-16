@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "lib": ["DOM", "ESNext"],
@@ -12,6 +12,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "sourceMap": false,
+    "types": ["node", "jest", "@testing-library/jest-dom"],
     "noImplicitAny": true,
     "downlevelIteration": true,
     "noUnusedLocals": true,

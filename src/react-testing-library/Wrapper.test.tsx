@@ -72,7 +72,7 @@ describe("Wrapper", () => {
     });
 
     it("renders with test-specific props correctly", () => {
-      const { getByText } = component
+      const { getByText, updateProps } = component
         .withProps({
           value: "Test value",
         })
@@ -80,6 +80,8 @@ describe("Wrapper", () => {
 
       expect(component.props).toEqual({ value: "Test value" });
       expect(getByText("Test value")).toBeDefined();
+
+      updateProps({ value: "New test value" });
     });
 
     it("clears test-specific props after previous test and uses default props again", () => {

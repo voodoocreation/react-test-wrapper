@@ -15,24 +15,28 @@ For example:
 const component = new WrapperWithRedux(SomeComponent);
 
 describe("when testing a scenario", () => {
-  const wrapper = component
-    .withReduxState({
-      test: {
-        value: "Scenario value 1"
-      }
-    })
-    .render();
+  let result: ReturnType<typeof component.render>;
+
+  it("renders the component", () => {
+    result = component
+      .withReduxState({
+        test: {
+          value: "Scenario value 1"
+        }
+      })
+      .render();
+  });
 
   it("renders the initial value", () => {
-    expect(wrapper.find(".SomeComponent--value").text()).toBe("Initial value");
+    expect(screen.getByText("Initial value")).toBeDefined();
   });
 
   it("dispatches actions.setValue", () => {
-    wrapper.store.dispatch(actions.setValue("New value"));
+    result.store.dispatch(actions.setValue("New value"));
   });
 
   it("renders the updated value", () => {
-    expect(wrapper.find(".SomeComponent--value").text()).toBe("New value");
+    expect(screen.getByText("New value")).toBeDefined();
   });
 });
 ```
@@ -64,6 +68,10 @@ Toggles whether arrays get merged or not in Redux state.
 ### `render`
 Mounts the component with the React Testing Library `render` function, using the currently-set data.
 Returns a `RenderResult` instance, which also includes a `store` property.
+
+In addition to the `RenderResult` values, an `updateProps` function is also returned, which wraps
+a call to the RTL `rerender` method in an `act`, as a convenience method to update props within the
+component lifecycle.
 
 
 How to extend for use in your project

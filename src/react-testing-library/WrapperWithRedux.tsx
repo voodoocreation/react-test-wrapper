@@ -1,9 +1,7 @@
 import {
   cleanup,
-  Queries,
   queries as defaultQueries,
   render,
-  RenderResult,
 } from "@testing-library/react";
 import * as React from "react";
 import { Provider } from "react-redux";
@@ -11,7 +9,7 @@ import { Middleware, Store } from "redux";
 import { merge } from "ts-deepmerge";
 
 import { queries as customQueries } from "./queries.js";
-import { Wrapper } from "./Wrapper.js";
+import { TRenderResult, Wrapper } from "./Wrapper.js";
 import { DeepPartial } from "../types.js";
 
 const queries = {
@@ -19,7 +17,7 @@ const queries = {
   ...customQueries,
 };
 
-type TResultWithStore<Q extends Queries, S> = RenderResult<Q> & {
+type TResultWithStore<P, S> = TRenderResult<P> & {
   store: Store<S>;
 };
 
@@ -130,14 +128,13 @@ export abstract class WrapperWithRedux<
    *
    * Returns the `RenderResult` from `render()`, with `store` included.
    */
-  // @ts-ignore
-  public render = () => {
+  public render = (): TResultWithStore<P, S> => {
     this.dispatchedActions = [];
     this.beforeRender();
 
     const props = this.defineProps() as P;
     // @ts-ignore
-    const result: TResultWithStore<typeof queries, S> = render(
+    const result: TResultWithStore<P, S> = render(
       <this.Component {...props} />,
       {
         queries,
@@ -149,7 +146,16 @@ export abstract class WrapperWithRedux<
 
     result.store = this.reduxStore!;
 
-    return result;
+    const updateProps = (newProps: Partial<P>) => {
+      const merged: P = { ...props, ...newProps };
+
+      result.rerender(<this.Component {...merged} />);
+    };
+
+    return {
+      ...result,
+      updateProps,
+    };
   };
 
   /**

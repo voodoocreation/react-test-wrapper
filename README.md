@@ -20,7 +20,7 @@ between tests.
 
 ## Example
 ```typescript jsx
-import { Wrapper } from "react-test-wrapper";
+import { screen, Wrapper } from "react-test-wrapper";
 
 const component = new Wrapper(SomeComponent)
   .withDefaultChildren(<div className="Child" />)
@@ -30,18 +30,32 @@ const component = new Wrapper(SomeComponent)
   });
 
 describe("when testing a scenario", () => {
-  const { getByText } = component
-    .withProps({
-      prop1: "Scenario value 1"
-    })
-    .render();
+  let result: ReturnType<typeof component.render>;
+
+  it("renders the component", () => {
+    result = component
+      .withProps({
+        prop1: "Scenario value 1"
+      })
+      .render();
+  });
 
   it("uses the scenario-specific value for prop1", () => {
-    expect(getByText("Scenario value 1")).toBeDefined();
+    expect(screen.getByText("Scenario value 1")).toBeDefined();
   });
 
   it("uses the default value for prop2", () => {
-    expect(getByText("Default value 2")).toBeDefined();
+    expect(screen.getByText("Default value 2")).toBeDefined();
+  });
+
+  it("updates the props", () => {
+    result.updateProps({
+      prop1: "New scenario value 1"
+    });
+  });
+
+  it("renders the new prop value", () => {
+    expect(screen.getByText("New scenario value 1")).toBeDefined();
   });
 });
 ```

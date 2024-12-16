@@ -43,6 +43,10 @@ Sets the scenario-specific props to be used - cleared after `render` is called.
 Mounts the component with the `react-testing-library` `render` function, using the currently-set data.
 Returns the `RenderResult` returned by the `render` function.
 
+In addition to the `RenderResult` values, an `updateProps` function is also returned, which wraps
+a call to the RTL `rerender` method in an `act`, as a convenience method to update props within the
+component lifecycle.
+
 
 How to extend
 -------------

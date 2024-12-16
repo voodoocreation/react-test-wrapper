@@ -2,6 +2,7 @@ import {
   cleanup,
   render,
   queries as defaultQueries,
+  RenderResult,
 } from "@testing-library/react";
 import * as React from "react";
 
@@ -10,6 +11,10 @@ import { queries as customQueries } from "./queries.js";
 const queries = {
   ...defaultQueries,
   ...customQueries,
+};
+
+export type TRenderResult<P> = RenderResult<typeof queries> & {
+  updateProps: (newProps: Partial<P>) => void;
 };
 
 /**
@@ -147,18 +152,27 @@ export class Wrapper<
    *
    * Returns the `RenderResult` from `render()`.
    */
-  public render = () => {
+  public render = (): TRenderResult<P> => {
     this.beforeRender();
 
     const props = this.defineProps() as P;
-    const wrapper = render<typeof queries>(<this.Component {...props} />, {
+    const result = render<typeof queries>(<this.Component {...props} />, {
       queries,
       wrapper: this.WrappingComponent,
     });
 
     this.reset();
 
-    return wrapper;
+    const updateProps = (newProps: Partial<P>) => {
+      const merged: P = { ...props, ...newProps };
+
+      result.rerender(<this.Component {...merged} />);
+    };
+
+    return {
+      ...result,
+      updateProps,
+    };
   };
 
   /**
